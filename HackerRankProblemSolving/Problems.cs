@@ -333,8 +333,8 @@ namespace HackerRankProblemSolving
 			return "not pangram";
 		}
 		/// <summary>
-			/// https://www.hackerrank.com/challenges/weighted-uniform-string/problem
-			/// </summary>
+		/// https://www.hackerrank.com/challenges/weighted-uniform-string/problem
+		/// </summary>
 		public static List<string> WeightedUniformStrings(string s, List<int> queries)
 		{
 			Dictionary<char, int> subUniStrings = new Dictionary<char, int>();
@@ -515,7 +515,6 @@ namespace HackerRankProblemSolving
 		{
 			int result = 0;
 			string resultStr = "";
-			string sub = "";
 			for (int i = 0; i < s.Length; i++)
 			{
 				if (!resultStr.Contains(s[i]))
@@ -526,6 +525,78 @@ namespace HackerRankProblemSolving
 			}
 			return result;
 		}
+        /// <summary>
+        /// https://leetcode.com/problems/merge-sorted-array
+        /// </summary>
+        public static void Merge(int[] nums1, int m, int[] nums2, int n)
+        {
+            List<int> result = new List<int>();
+            int idx1 = 0;
+            int idx2 = 0;
+			int empIdx = m - 1;
+            if (m == 0)
+            {
+                nums2.ToList().ForEach(x => { nums1[idx1] = x; idx1++; });
+                return;
+            }
+            else if (n == 0)
+            {
+                return;
+            } 
+			while (idx1 < m && idx2 < n)
+			{
+				int num1 = nums1[idx1];
+				int num2 = nums2[idx2];
 
-	}
+				if (num1 < num2)
+				{
+					result.Add(num1);
+					idx1++;
+				}
+				else if (num2 < num1)
+				{
+					result.Add(num2);
+					idx2++;
+				}
+				else
+				{
+					result.Add(num1);
+					result.Add(num2);
+					idx1++;
+					idx2++;
+				}
+            }
+			while (idx1 < m)
+			{
+                int num1 = nums1[idx1];
+                result.Add(num1);
+				idx1++;
+            }
+            while (idx2 < n)
+            {
+                int num2 = nums2[idx2];
+                result.Add(num2);
+				idx2++;
+            }
+
+            idx1 = 0;
+            result.ForEach(x => { nums1[idx1] = x; idx1++; });
+        }
+        /// <summary>
+        /// https://leetcode.com/problems/remove-element
+        /// </summary>
+        public static int RemoveElement(int[] nums, int val)
+        {
+			int idx = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+				if (nums[i] != val)
+                {
+                    nums[idx] = nums[i];
+                    idx++;
+                }
+            }
+			return idx;
+        }
+    }
 }
