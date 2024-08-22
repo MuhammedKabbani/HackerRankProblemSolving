@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -597,6 +598,78 @@ namespace HackerRankProblemSolving
                 }
             }
 			return idx;
+        }
+        /// <summary>
+        /// https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+        /// </summary>
+        public static int RemoveDuplicates(int[] nums)
+        {
+			int lastNum = int.MinValue, lastNumFreq = 1;
+			int idx = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+				int num = nums[i];
+				if (num == lastNum)
+				{
+					lastNumFreq++;
+					if (lastNumFreq <= 2)
+					{
+						nums[idx] = num;
+						idx++;
+                    }
+                }
+				else
+				{
+					lastNumFreq = 1;
+					lastNum = num;
+                    nums[idx] = num;
+                    idx++;
+                }
+            }
+			return idx;
+        }
+        /// <summary>
+        /// https://leetcode.com/problems/majority-element
+        /// </summary>
+        public static int MajorityElement(int[] nums)
+        {
+			int result = 0;
+			int maxValue = int.MinValue;
+			Dictionary<int, int> dict = new Dictionary<int, int>();
+			foreach (var num in nums)
+			{
+				if (dict.ContainsKey(num))
+					dict[num]++;
+				else
+					dict[num] = 1;
+				if (dict[num] > maxValue)
+				{
+					maxValue = dict[num];
+					result = num;
+                }
+			}
+			return result;
+		}
+        /// <summary>
+        /// https://leetcode.com/problems/rotate-array
+        /// </summary>
+        public static void Rotate(int[] nums, int k)
+        {
+            int arrLen = nums.Length;
+            int[] result = new int[arrLen];
+            int idx = 0;
+
+            for (int i = 0; i < arrLen; i++)
+            {
+                result[(i + k) % arrLen] = nums[idx];
+				idx++;
+            }
+            idx = 0;
+            foreach (var num in result)
+            {
+                nums[idx] = num;
+                idx++;
+            }
         }
     }
 }
